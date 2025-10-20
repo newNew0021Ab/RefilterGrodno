@@ -2,9 +2,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import { Search, Droplets, Wind, CheckCircle, FileText } from "lucide-react";
-import dirtyFilterImage from "@assets/generated_images/Dirty_DPF_filter_before_a020c85c.png";
-import cleanFilterImage from "@assets/generated_images/Clean_DPF_filter_after_bce98148.png";
-import technicianImage from "@assets/generated_images/Technician_cleaning_DPF_process_e107e449.png";
 
 const processSteps = [
   {
@@ -98,80 +95,6 @@ export function ProcessSection() {
           </div>
         </div>
 
-        {/* Before/After Comparison */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-5xl mx-auto"
-        >
-          <h3 className="text-2xl sm:text-3xl font-heading font-bold text-center mb-8">
-            Результаты чистки: До и После
-          </h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            {/* Before */}
-            <Card className="overflow-hidden">
-              <div className="relative">
-                <img
-                  src={dirtyFilterImage}
-                  alt="Загрязненный DPF фильтр до чистки"
-                  className="w-full h-64 object-cover"
-                />
-                <Badge className="absolute top-4 left-4 bg-destructive text-white">
-                  ДО чистки
-                </Badge>
-              </div>
-              <CardContent className="p-6">
-                <h4 className="font-heading font-bold text-lg mb-2">Забитый фильтр</h4>
-                <p className="text-sm text-muted-foreground">
-                  Сажа и масляные отложения блокируют каналы фильтра, снижая мощность и увеличивая расход топлива
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* After */}
-            <Card className="overflow-hidden border-2 border-chart-3">
-              <div className="relative">
-                <img
-                  src={cleanFilterImage}
-                  alt="Чистый DPF фильтр после профессиональной чистки"
-                  className="w-full h-64 object-cover"
-                />
-                <Badge className="absolute top-4 left-4 bg-chart-3 text-white">
-                  ПОСЛЕ чистки
-                </Badge>
-              </div>
-              <CardContent className="p-6">
-                <h4 className="font-heading font-bold text-lg mb-2">Восстановленный фильтр</h4>
-                <p className="text-sm text-muted-foreground">
-                  Каналы полностью очищены, фильтр работает как новый. Мощность восстановлена, расход нормализован
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Process Image */}
-          <Card className="overflow-hidden">
-            <div className="relative h-80">
-              <img
-                src={technicianImage}
-                alt="Профессиональная чистка DPF фильтра в Refilter"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
-                <div className="p-6 text-white">
-                  <h4 className="font-heading font-bold text-2xl mb-2">
-                    Профессиональное оборудование
-                  </h4>
-                  <p className="text-white/90">
-                    Используем специализированное ультразвуковое оборудование и проверенные химические составы для максимального эффекта
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Card>
-        </motion.div>
       </div>
     </section>
   );

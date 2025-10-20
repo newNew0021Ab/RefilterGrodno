@@ -181,12 +181,28 @@ export function PricingSection() {
           </div>
         </motion.div>
 
+        {/* Transport Companies Discount Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-12 bg-gradient-to-r from-chart-2/20 to-chart-1/20 rounded-xl p-8 border-2 border-chart-2/30 text-center"
+        >
+          <h3 className="text-2xl sm:text-3xl font-heading font-bold mb-3 text-chart-1">
+            Скидки для транспортных компаний
+          </h3>
+          <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
+            Специальные условия и индивидуальные цены для автопарков и транспортных компаний.{" "}
+            <span className="font-bold text-chart-2">Обслуживание нескольких автомобилей — выгоднее!</span>
+          </p>
+        </motion.div>
+
         {/* Guarantee Banner */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-12 bg-gradient-to-r from-chart-3/20 to-chart-1/20 rounded-xl p-8 border-2 border-chart-3/30 text-center"
+          className="mt-8 bg-gradient-to-r from-chart-3/20 to-chart-1/20 rounded-xl p-8 border-2 border-chart-3/30 text-center"
         >
           <h3 className="text-2xl sm:text-3xl font-heading font-bold mb-3 text-chart-1">
             Гарантия на все услуги
