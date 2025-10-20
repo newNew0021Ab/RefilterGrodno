@@ -105,14 +105,14 @@ export function ContactSection() {
                   <p className="text-muted-foreground mb-6">
                     Промышленная зона
                   </p>
-                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <div className="flex flex-col gap-3 justify-center">
                     <a
                       href="https://yandex.by/maps/-/CLbIIGzP"
                       target="_blank"
                       rel="noopener noreferrer"
                       data-testid="link-yandex-maps"
                     >
-                      <Button variant="default" className="bg-chart-1 text-white">
+                      <Button variant="default" className="bg-chart-1 text-white w-full">
                         <ExternalLink className="w-4 h-4 mr-2" />
                         Открыть в Яндекс.Картах
                       </Button>
@@ -123,7 +123,7 @@ export function ContactSection() {
                       rel="noopener noreferrer"
                       data-testid="link-google-maps"
                     >
-                      <Button variant="outline">
+                      <Button variant="outline" className="w-full">
                         <ExternalLink className="w-4 h-4 mr-2" />
                         Открыть в Google Maps
                       </Button>
