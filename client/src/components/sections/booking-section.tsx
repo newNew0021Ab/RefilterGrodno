@@ -25,6 +25,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { motion } from "framer-motion";
 import { Calendar, CheckCircle2, Loader2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const bookingFormSchema = z.object({
   name: z.string().min(2, "Имя должно содержать минимум 2 символа"),
@@ -40,6 +41,7 @@ type BookingFormValues = z.infer<typeof bookingFormSchema>;
 
 export function BookingSection() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const { toast } = useToast();
 
   const form = useForm<BookingFormValues>({
     resolver: zodResolver(bookingFormSchema),
@@ -62,8 +64,10 @@ export function BookingSection() {
         body: JSON.stringify(data),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to submit booking");
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Failed to submit booking");
       }
 
       setIsSubmitted(true);
@@ -74,9 +78,18 @@ export function BookingSection() {
         preferredDate: "",
         message: "",
       });
+
+      toast({
+        title: "Заявка отправлена!",
+        description: "Мы свяжемся с вами в течение 5 минут.",
+      });
     } catch (error) {
       console.error("Booking submission error:", error);
-      alert("Произошла ошибка при отправке заявки. Пожалуйста, попробуйте позже или позвоните нам по телефону +375 29 836 96 55");
+      toast({
+        variant: "destructive",
+        title: "Ошибка отправки",
+        description: "Произошла ошибка. Позвоните нам: +375 29 836 96 55",
+      });
     }
   };
 

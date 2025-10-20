@@ -4,31 +4,63 @@ import { storage } from "./storage";
 import { insertBookingSchema } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // POST /api/bookings - Create new booking
+  // POST /api/bookings - Create new booking and send to Web3Forms
   app.post("/api/bookings", async (req, res) => {
     try {
       // Validate request body
       const validatedData = insertBookingSchema.parse(req.body);
       
-      // Create booking in storage
+      // Prepare data for Web3Forms
+      const vehicleTypeText = 
+        validatedData.vehicleType === "car" ? "Легковой автомобиль" :
+        validatedData.vehicleType === "crossover" ? "Кроссовер/Минивен" :
+        "Грузовой автомобиль";
+
+      const formData = {
+        access_key: process.env.WEB3FORMS_ACCESS_KEY || "",
+        name: validatedData.name,
+        phone: validatedData.phone,
+        "Тип автомобиля": vehicleTypeText,
+        "Желаемая дата": validatedData.preferredDate || "Не указана",
+        "Сообщение": validatedData.message || "Не указано",
+        subject: `Новая заявка на чистку DPF от ${validatedData.name}`,
+      };
+
+      // Send to Web3Forms
+      const web3FormsResponse = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const web3FormsResult = await web3FormsResponse.json();
+
+      if (!web3FormsResponse.ok || !web3FormsResult.success) {
+        throw new Error(web3FormsResult.message || "Failed to send to Web3Forms");
+      }
+
+      // Also save locally for backup
       const booking = await storage.createBooking(validatedData);
       
-      // Log booking for monitoring (in production, send email/telegram notification)
-      console.log("New booking received:", {
+      console.log("Booking sent to Web3Forms and saved locally:", {
         id: booking.id,
         name: booking.name,
         phone: booking.phone,
-        vehicleType: booking.vehicleType,
-        preferredDate: booking.preferredDate,
       });
 
-      res.status(201).json(booking);
+      res.status(201).json({ 
+        success: true, 
+        message: "Booking received",
+        id: booking.id 
+      });
     } catch (error) {
       console.error("Booking error:", error);
       if (error instanceof Error && error.name === "ZodError") {
-        res.status(400).json({ error: "Invalid booking data", details: error });
+        res.status(400).json({ success: false, error: "Invalid booking data", details: error });
       } else {
-        res.status(500).json({ error: "Failed to create booking" });
+        res.status(500).json({ success: false, error: "Failed to create booking" });
       }
     }
   });
