@@ -103,7 +103,7 @@ export function ContactSection() {
                     г. Гродно, ул. Низинная, д. 5
                   </h3>
                   <p className="text-muted-foreground mb-6">
-                    Промышленная зона
+                    Постройте маршрут до нашего сервиса
                   </p>
                   <div className="flex flex-col gap-3 justify-center">
                     <a
