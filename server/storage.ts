@@ -1,37 +1,46 @@
-import { type User, type InsertUser } from "@shared/schema";
+import { type Booking, type InsertBooking } from "@shared/schema";
 import { randomUUID } from "crypto";
 
-// modify the interface with any CRUD methods
-// you might need
-
 export interface IStorage {
-  getUser(id: string): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
+  // Booking methods
+  createBooking(booking: InsertBooking): Promise<Booking>;
+  getBooking(id: string): Promise<Booking | undefined>;
+  getAllBookings(): Promise<Booking[]>;
 }
 
 export class MemStorage implements IStorage {
-  private users: Map<string, User>;
+  private bookings: Map<string, Booking>;
 
   constructor() {
-    this.users = new Map();
+    this.bookings = new Map();
   }
 
-  async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
-  }
-
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
-  }
-
-  async createUser(insertUser: InsertUser): Promise<User> {
+  async createBooking(insertBooking: InsertBooking): Promise<Booking> {
     const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+    const createdAt = new Date();
+    const booking: Booking = { 
+      id,
+      name: insertBooking.name,
+      phone: insertBooking.phone,
+      vehicleType: insertBooking.vehicleType,
+      preferredDate: insertBooking.preferredDate || null,
+      isUrgent: insertBooking.isUrgent || "false",
+      includeRemoval: insertBooking.includeRemoval || "false",
+      message: insertBooking.message || null,
+      createdAt,
+    };
+    this.bookings.set(id, booking);
+    return booking;
+  }
+
+  async getBooking(id: string): Promise<Booking | undefined> {
+    return this.bookings.get(id);
+  }
+
+  async getAllBookings(): Promise<Booking[]> {
+    return Array.from(this.bookings.values()).sort(
+      (a, b) => (b.createdAt?.getTime() || 0) - (a.createdAt?.getTime() || 0)
+    );
   }
 }
 
