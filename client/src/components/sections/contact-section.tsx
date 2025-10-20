@@ -15,13 +15,13 @@ export function ContactSection() {
       (window as any).ymaps.ready(() => {
         try {
           const map = new (window as any).ymaps.Map(mapRef.current, {
-            center: [53.6693, 23.8131], // Coordinates for Гродно, ул. Низинная, 5
+            center: [53.736121, 23.744458], // Coordinates for Гродно, ул. Низинная, 5
             zoom: 16,
             controls: ["zoomControl", "fullscreenControl"],
           });
 
           const placemark = new (window as any).ymaps.Placemark(
-            [53.6693, 23.8131],
+            [53.736121, 23.744458],
             {
               hintContent: "Refilter - Чистка DPF/FAP фильтров",
               balloonContent: "г. Гродно, ул. Низинная, д. 5<br/>Пн–Пт 9:00–19:00, Сб 9:00–14:00",
@@ -122,16 +122,6 @@ export function ContactSection() {
               </Card>
             ))}
 
-            {/* Additional Info Card */}
-            <Card className="bg-gradient-to-br from-chart-1/10 to-chart-2/10 border-2 border-chart-1/20">
-              <CardContent className="p-6">
-                <h3 className="font-heading font-bold text-lg mb-3">Как добраться</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Мы находимся в промышленной зоне на ул. Низинная. Удобный подъезд для любых типов автомобилей. 
-                  Есть парковка для клиентов.
-                </p>
-              </CardContent>
-            </Card>
           </motion.div>
 
           {/* Map */}
@@ -155,11 +145,11 @@ export function ContactSection() {
                       г. Гродно, ул. Низинная, д. 5
                     </h3>
                     <p className="text-muted-foreground mb-6">
-                      Промышленная зона, удобный подъезд для любых типов автомобилей
+                      Промышленная зона
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
                       <a
-                        href="https://yandex.by/maps/?text=53.6693,23.8131"
+                        href="https://yandex.by/maps/-/CLbIIGzP"
                         target="_blank"
                         rel="noopener noreferrer"
                         data-testid="link-yandex-maps"

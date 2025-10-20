@@ -181,20 +181,36 @@ export function PricingSection() {
           </div>
         </motion.div>
 
-        {/* Transport Companies Discount Banner */}
+        {/* Discounts Banner */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-12 bg-gradient-to-r from-chart-2/20 to-chart-1/20 rounded-xl p-8 border-2 border-chart-2/30 text-center"
+          className="mt-12 bg-gradient-to-r from-chart-2/20 to-chart-1/20 rounded-xl p-8 border-2 border-chart-2/30"
         >
-          <h3 className="text-2xl sm:text-3xl font-heading font-bold mb-3 text-chart-1">
-            Скидки для транспортных компаний
+          <h3 className="text-2xl sm:text-3xl font-heading font-bold mb-6 text-chart-1 text-center">
+            Специальные предложения и скидки
           </h3>
-          <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
-            Специальные условия и индивидуальные цены для автопарков и транспортных компаний.{" "}
-            <span className="font-bold text-chart-2">Обслуживание нескольких автомобилей — выгоднее!</span>
-          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <div className="bg-background/60 backdrop-blur-sm rounded-lg p-6 border border-chart-2/20">
+              <h4 className="font-heading font-bold text-xl mb-3 text-chart-2">
+                Скидка на первую чистку
+              </h4>
+              <p className="text-foreground/80">
+                Первое обращение в наш сервис — со скидкой!{" "}
+                <span className="font-bold text-chart-2">Выгодное начало сотрудничества.</span>
+              </p>
+            </div>
+            <div className="bg-background/60 backdrop-blur-sm rounded-lg p-6 border border-chart-2/20">
+              <h4 className="font-heading font-bold text-xl mb-3 text-chart-2">
+                Для транспортных компаний
+              </h4>
+              <p className="text-foreground/80">
+                Специальные условия и индивидуальные цены для автопарков.{" "}
+                <span className="font-bold text-chart-2">Обслуживание нескольких авто — выгоднее!</span>
+              </p>
+            </div>
+          </div>
         </motion.div>
 
         {/* Guarantee Banner */}
