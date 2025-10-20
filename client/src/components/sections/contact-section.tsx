@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -6,40 +5,6 @@ import { motion } from "framer-motion";
 import { MapPin, Phone, Clock, Navigation, ExternalLink } from "lucide-react";
 
 export function ContactSection() {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const [mapLoaded, setMapLoaded] = useState(false);
-
-  useEffect(() => {
-    // Initialize Yandex Map when component mounts
-    if (typeof window !== "undefined" && (window as any).ymaps && mapRef.current) {
-      (window as any).ymaps.ready(() => {
-        try {
-          const map = new (window as any).ymaps.Map(mapRef.current, {
-            center: [53.736121, 23.744458], // Coordinates for Гродно, ул. Низинная, 5
-            zoom: 16,
-            controls: ["zoomControl", "fullscreenControl"],
-          });
-
-          const placemark = new (window as any).ymaps.Placemark(
-            [53.736121, 23.744458],
-            {
-              hintContent: "Refilter - Чистка DPF/FAP фильтров",
-              balloonContent: "г. Гродно, ул. Низинная, д. 5<br/>Пн–Пт 9:00–19:00, Сб 9:00–14:00",
-            },
-            {
-              preset: "islands#redAutoIcon",
-            }
-          );
-
-          map.geoObjects.add(placemark);
-          setMapLoaded(true);
-        } catch (error) {
-          console.error("Failed to initialize Yandex Map:", error);
-          setMapLoaded(false);
-        }
-      });
-    }
-  }, []);
 
   const contactInfo = [
     {
@@ -131,52 +96,44 @@ export function ContactSection() {
             viewport={{ once: true }}
           >
             <Card className="overflow-hidden h-full min-h-[500px] relative">
-              <div
-                ref={mapRef}
-                className="w-full h-full"
-                data-testid="map-container"
-              />
-              {/* Fallback if map doesn't load */}
-              {!mapLoaded && (
-                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-chart-1/10 to-chart-2/10 p-8">
-                  <div className="text-center max-w-md">
-                    <MapPin className="w-16 h-16 text-chart-1 mx-auto mb-4" />
-                    <h3 className="text-xl font-heading font-bold mb-3">
-                      г. Гродно, ул. Низинная, д. 5
-                    </h3>
-                    <p className="text-muted-foreground mb-6">
-                      Промышленная зона
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                      <a
-                        href="https://yandex.by/maps/-/CLbIIGzP"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        data-testid="link-yandex-maps"
-                      >
-                        <Button variant="default" className="bg-chart-1 text-white">
-                          <ExternalLink className="w-4 h-4 mr-2" />
-                          Открыть в Яндекс.Картах
-                        </Button>
-                      </a>
-                      <a
-                        href="https://www.google.com/maps?q=53.6693,23.8131"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        data-testid="link-google-maps"
-                      >
-                        <Button variant="outline">
-                          <ExternalLink className="w-4 h-4 mr-2" />
-                          Открыть в Google Maps
-                        </Button>
-                      </a>
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-4">
-                      Координаты: 53.6693, 23.8131
-                    </p>
+              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-chart-1/10 to-chart-2/10 p-8">
+                <div className="text-center max-w-md">
+                  <MapPin className="w-16 h-16 text-chart-1 mx-auto mb-4" />
+                  <h3 className="text-xl font-heading font-bold mb-3">
+                    г. Гродно, ул. Низинная, д. 5
+                  </h3>
+                  <p className="text-muted-foreground mb-6">
+                    Промышленная зона
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <a
+                      href="https://yandex.by/maps/-/CLbIIGzP"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-testid="link-yandex-maps"
+                    >
+                      <Button variant="default" className="bg-chart-1 text-white">
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        Открыть в Яндекс.Картах
+                      </Button>
+                    </a>
+                    <a
+                      href="https://www.google.com/maps?q=53.736121,23.744458"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-testid="link-google-maps"
+                    >
+                      <Button variant="outline">
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        Открыть в Google Maps
+                      </Button>
+                    </a>
                   </div>
+                  <p className="text-xs text-muted-foreground mt-4">
+                    Координаты: 53.736121, 23.744458
+                  </p>
                 </div>
-              )}
+              </div>
             </Card>
           </motion.div>
         </div>
