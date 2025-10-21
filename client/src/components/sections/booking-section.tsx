@@ -79,9 +79,12 @@ export function BookingSection() {
         message: "",
       });
 
+      // Show success message, with warning if email notification failed
       toast({
-        title: "Заявка отправлена!",
-        description: "Мы свяжемся с вами в течение 5 минут.",
+        title: "Заявка принята!",
+        description: result.warning 
+          ? "Заявка сохранена. Email-уведомление может быть задержано, но мы обязательно свяжемся с вами!"
+          : "Мы свяжемся с вами в течение 5 минут.",
       });
     } catch (error) {
       console.error("Booking submission error:", error);

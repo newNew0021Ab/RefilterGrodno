@@ -59,9 +59,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const web3FormsResult = await web3FormsResponse.json();
 
       if (!web3FormsResponse.ok || !web3FormsResult.success) {
-        throw new Error(
-          web3FormsResult.message || "Failed to send to Web3Forms",
-        );
+        const errorMessage = web3FormsResult.message || "Failed to send to Web3Forms";
+        console.error("Web3Forms error:", errorMessage);
+        
+        // Still save locally even if Web3Forms fails
+        const booking = await storage.createBooking(validatedData);
+        console.log("Booking saved locally despite Web3Forms error:", {
+          id: booking.id,
+          name: booking.name,
+          phone: booking.phone,
+          error: errorMessage,
+        });
+        
+        // Return success since we saved locally
+        res.status(201).json({
+          success: true,
+          message: "Booking received and saved",
+          id: booking.id,
+          warning: "Email notification may be delayed",
+        });
+        return;
       }
 
       // Also save locally for backup
