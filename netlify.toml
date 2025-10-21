@@ -1,11 +1,17 @@
-# netlify.toml
-
 [build]
+  # Команда, которая запускается при деплое. Она запустит ваш "vite build"
   command = "npm run build"
-  publish = "dist"
-  functions = "netlify/functions"
+  
+  # Директория со статическими файлами (фронтенд).
+  # Это наиболее вероятная причина 404. 
+  # В типичных структурах это может быть 'client/dist' или 'dist' (если vite.config.ts настроен на вывод в корень).
+  # Начните с 'client/dist' и проверьте эту папку после локальной сборки.
+  publish = "client/dist" 
 
+# Настройка для Single Page Application (SPA)
+# Это нужно для таких роутеров, как React Router, чтобы при прямом заходе на /about 
+# Netlify возвращал index.html вместо 404.
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/index/:splat" # 'index' - это имя вашего серверного файла (index.ts)
+  from = "/*"
+  to = "/index.html"
   status = 200
