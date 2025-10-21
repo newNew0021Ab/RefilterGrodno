@@ -285,7 +285,7 @@ export function BookingSection() {
                     Заявка принята!
                   </h3>
                   <p className="text-lg text-muted-foreground mb-6">
-                    Мы свяжемся с вами в течение 5 минут для подтверждения записи.
+                    Мы свяжемся с вами в течение дня для подтверждения записи.
                   </p>
                   <Button
                     variant="outline"
