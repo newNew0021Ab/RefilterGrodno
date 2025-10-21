@@ -1,10 +1,16 @@
 [build]
+  command = "npm install && npm run build" # Можно оставить npm install для уверенности
   
-  command = "npm install && npm run build"
+  # ИСПРАВЛЕНИЕ: Указываем Netlify, что фронтенд находится в папке dist/public
+  publish = "dist/public" 
   
- 
-  publish = "client/dist" 
+  functions = "netlify/functions" 
 
+# Перенаправления
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/server" 
+  status = 200
 
 [[redirects]]
   from = "/*"
