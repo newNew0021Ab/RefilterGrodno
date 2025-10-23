@@ -1,10 +1,10 @@
 [build]
-  command = "npm install && npm run build" # Можно оставить npm install для уверенности
-  
-  # ИСПРАВЛЕНИЕ: Указываем Netlify, что фронтенд находится в папке dist/public
+  command = "npm install && npm run build"
   publish = "dist/public" 
+  functions = "netlify/functions"
   
-  functions = "netlify/functions" 
+  # Web3Forms Access Key is a public key, safe to expose in frontend code
+  environment = { SECRETS_SCAN_OMIT_KEYS = "VITE_WEB3FORMS_ACCESS_KEY" } 
 
 # Перенаправления
 [[redirects]]
