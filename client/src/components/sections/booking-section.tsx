@@ -56,9 +56,13 @@ export function BookingSection() {
 
   const onSubmit = async (data: BookingFormValues) => {
     try {
-      // Web3Forms access key (public key, safe to use in frontend)
-      // To use environment variable in Netlify: Set VITE_WEB3FORMS_ACCESS_KEY in Site Settings > Environment Variables
-      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "";
+      // Web3Forms access key from environment variable
+      // Set VITE_WEB3FORMS_ACCESS_KEY in Netlify Site Settings > Environment Variables
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+      
+      if (!accessKey) {
+        throw new Error("Web3Forms is not configured");
+      }
       
       // Prepare vehicle type in Russian
       const vehicleTypeText =
