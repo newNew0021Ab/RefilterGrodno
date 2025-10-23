@@ -2,11 +2,29 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
+import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 
 export default defineConfig({
   plugins: [
     react(),
     runtimeErrorOverlay(),
+    ViteImageOptimizer({
+      png: {
+        quality: 80,
+      },
+      jpeg: {
+        quality: 75,
+      },
+      jpg: {
+        quality: 75,
+      },
+      webp: {
+        quality: 80,
+      },
+      avif: {
+        quality: 70,
+      },
+    }),
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
       ? [
@@ -30,6 +48,15 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    cssCodeSplit: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom", "wouter"],
+          ui: ["@radix-ui/react-dialog", "@radix-ui/react-select", "@radix-ui/react-accordion"],
+        },
+      },
+    },
   },
   server: {
     fs: {
