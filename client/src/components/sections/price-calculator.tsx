@@ -81,7 +81,7 @@ export function PriceCalculator() {
                     data-testid={`calc-vehicle-${vehicle.type}`}
                   >
                     {vehicle.popular && (
-                      <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-chart-2 text-white">
+                      <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-chart-2 text-black font-semibold border-chart-2">
                         Популярно
                       </Badge>
                     )}

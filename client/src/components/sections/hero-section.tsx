@@ -25,6 +25,10 @@ export function HeroSection() {
             src={heroPng}
             alt="Современный автосервис Refilter"
             className="w-full h-full object-cover"
+            width={1408}
+            height={768}
+            loading="eager"
+            decoding="async"
           />
         </picture>
         {/* Dark gradient wash for text readability */}
@@ -98,7 +102,7 @@ export function HeroSection() {
             <Button
               size="lg"
               onClick={() => scrollToSection("booking")}
-              className="bg-chart-2 text-white hover:bg-chart-2/90 border-0 text-base sm:text-lg px-8 py-6 shadow-xl"
+              className="bg-chart-2 text-black hover:bg-chart-2/90 border-0 text-base sm:text-lg px-8 py-6 shadow-xl font-semibold"
               data-testid="button-hero-booking"
             >
               <Calendar className="w-5 h-5 mr-2" />

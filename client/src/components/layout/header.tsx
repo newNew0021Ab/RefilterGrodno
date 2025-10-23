@@ -77,19 +77,20 @@ export function Header() {
             animate={{ opacity: 1, x: 0 }}
             className="hidden lg:flex items-center space-x-3"
           >
-            <a href="tel:+375298369655" data-testid="button-call-header">
+            <a href="tel:+375298369655" data-testid="button-call-header" aria-label="Позвонить по телефону +375 29 836 96 55">
               <Button variant="default" size="default" className="bg-chart-2 text-white hover:bg-chart-2/90 border-0">
                 <Phone className="w-4 h-4 mr-2" />
-                +375 29 836 96 55
+                <span className="sr-only">Позвонить: </span>+375 29 836 96 55
               </Button>
             </a>
           </motion.div>
 
           {/* Mobile Menu Button */}
           <div className="flex lg:hidden items-center space-x-2">
-            <a href="tel:+375298369655" data-testid="button-call-mobile">
+            <a href="tel:+375298369655" data-testid="button-call-mobile" aria-label="Позвонить по телефону +375 29 836 96 55">
               <Button variant="default" size="icon" className="bg-chart-2 text-white hover:bg-chart-2/90 border-0">
                 <Phone className="w-4 h-4" />
+                <span className="sr-only">Позвонить</span>
               </Button>
             </a>
             <Button
@@ -97,6 +98,8 @@ export function Header() {
               size="icon"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               data-testid="button-menu-toggle"
+              aria-label={mobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
+              aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>

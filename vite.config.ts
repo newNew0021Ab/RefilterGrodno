@@ -49,11 +49,33 @@ export default defineConfig({
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
     cssCodeSplit: true,
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        dead_code: true,
+        unused: true,
+      },
+    },
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ["react", "react-dom", "wouter"],
-          ui: ["@radix-ui/react-dialog", "@radix-ui/react-select", "@radix-ui/react-accordion"],
+        manualChunks(id) {
+          // Split vendor libraries
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom')) {
+              return 'vendor-react';
+            }
+            if (id.includes('@radix-ui')) {
+              return 'vendor-ui';
+            }
+            if (id.includes('framer-motion')) {
+              return 'vendor-animation';
+            }
+            if (id.includes('lucide-react')) {
+              return 'vendor-icons';
+            }
+            return 'vendor-other';
+          }
         },
       },
     },

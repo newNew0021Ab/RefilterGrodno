@@ -109,7 +109,7 @@ export function PricingSection() {
                 service.popular ? "border-chart-2 border-2 shadow-xl" : ""
               }`}>
                 {service.popular && (
-                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-chart-2 text-white">
+                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-chart-2 text-black font-semibold border-chart-2">
                     <Star className="w-3 h-3 mr-1" />
                     Популярно
                   </Badge>
