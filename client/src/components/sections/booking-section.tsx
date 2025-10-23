@@ -29,7 +29,7 @@ import { useToast } from "@/hooks/use-toast";
 
 const bookingFormSchema = z.object({
   name: z.string().min(2, "Имя должно содержать минимум 2 символа"),
-  phone: z.string().regex(/^\+375\d{9}$/, "Введите корректный номер телефона (+375XXXXXXXXX)"),
+  phone: z.string().min(5, "Введите номер телефона"),
   vehicleType: z.enum(["car", "crossover", "truck"], {
     errorMap: () => ({ message: "Выберите тип автомобиля" })
   }),
@@ -47,7 +47,7 @@ export function BookingSection() {
     resolver: zodResolver(bookingFormSchema),
     defaultValues: {
       name: "",
-      phone: "+375",
+      phone: "",
       vehicleType: undefined,
       preferredDate: "",
       message: "",
@@ -101,7 +101,7 @@ export function BookingSection() {
       setIsSubmitted(true);
       form.reset({
         name: "",
-        phone: "+375",
+        phone: "",
         vehicleType: undefined,
         preferredDate: "",
         message: "",
@@ -188,14 +188,14 @@ export function BookingSection() {
                             <FormLabel>Номер телефона</FormLabel>
                             <FormControl>
                               <Input
-                                placeholder="+375291234567"
+                                placeholder="+375 29 123-45-67"
                                 {...field}
                                 data-testid="input-phone"
                                 className="h-12 text-base"
                               />
                             </FormControl>
                             <FormDescription>
-                              Формат: +375XXXXXXXXX
+                              Введите номер в любом формате
                             </FormDescription>
                             <FormMessage />
                           </FormItem>
