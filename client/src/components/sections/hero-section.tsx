@@ -2,7 +2,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Phone, Calendar, Shield, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
-import heroImage from "@assets/generated_images/Modern_auto_service_garage_3e496822.png";
+import heroAvif from "@/assets/hero.avif";
+import heroWebp from "@/assets/hero.webp";
+import heroPng from "@/assets/hero.png";
 
 export function HeroSection() {
   const scrollToSection = (id: string) => {
@@ -16,11 +18,15 @@ export function HeroSection() {
     <section id="hero" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       {/* Background with gradient overlay */}
       <div className="absolute inset-0 z-0">
-        <img
-          src={heroImage}
-          alt="Современный автосервис Refilter"
-          className="w-full h-full object-cover"
-        />
+        <picture>
+          <source srcSet={heroAvif} type="image/avif" />
+          <source srcSet={heroWebp} type="image/webp" />
+          <img
+            src={heroPng}
+            alt="Современный автосервис Refilter"
+            className="w-full h-full object-cover"
+          />
+        </picture>
         {/* Dark gradient wash for text readability */}
         <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/70 to-black/60" />
       </div>
