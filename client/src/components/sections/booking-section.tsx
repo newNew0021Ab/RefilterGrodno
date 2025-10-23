@@ -195,7 +195,7 @@ export function BookingSection() {
                               />
                             </FormControl>
                             <FormDescription>
-                              Введите номер в любом формате
+                              +375291234567
                             </FormDescription>
                             <FormMessage />
                           </FormItem>
