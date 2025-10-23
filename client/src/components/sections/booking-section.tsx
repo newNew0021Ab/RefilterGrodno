@@ -56,12 +56,36 @@ export function BookingSection() {
 
   const onSubmit = async (data: BookingFormValues) => {
     try {
-      const response = await fetch("/api/bookings", {
+      // Web3Forms access key (public key, safe to use in frontend)
+      // To use environment variable in Netlify: Set VITE_WEB3FORMS_ACCESS_KEY in Site Settings > Environment Variables
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "62dabc26-05d1-433f-b724-93be30cedba6";
+      
+      // Prepare vehicle type in Russian
+      const vehicleTypeText =
+        data.vehicleType === "car"
+          ? "Легковой автомобиль"
+          : data.vehicleType === "crossover"
+            ? "Кроссовер/Минивен"
+            : "Грузовой автомобиль";
+
+      // Prepare data for Web3Forms
+      const formData = {
+        access_key: accessKey,
+        name: data.name,
+        phone: data.phone,
+        "Тип автомобиля": vehicleTypeText,
+        "Желаемая дата": data.preferredDate || "Не указана",
+        Сообщение: data.message || "Не указано",
+        subject: `Новая заявка на чистку DPF от ${data.name}`,
+      };
+
+      // Send directly to Web3Forms API
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formData),
       });
 
       const result = await response.json();
@@ -79,12 +103,9 @@ export function BookingSection() {
         message: "",
       });
 
-      // Show success message, with warning if email notification failed
       toast({
-        title: "Заявка принята!",
-        description: result.warning 
-          ? "Заявка сохранена. Email-уведомление может быть задержано, но мы обязательно свяжемся с вами!"
-          : "Мы свяжемся с вами в течение 5 минут.",
+        title: "Заявка отправлена!",
+        description: "Мы свяжемся с вами в течение 5 минут.",
       });
     } catch (error) {
       console.error("Booking submission error:", error);
