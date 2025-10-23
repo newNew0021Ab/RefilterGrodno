@@ -173,22 +173,36 @@ npm run dev
 
 ## Оптимизация производительности (Google PageSpeed)
 
-### Реализованные оптимизации (23 октября 2025)
+### Реализованные оптимизации (23 октября 2025) - ВЕРСИЯ 2
 
-#### 1. **Оптимизация загрузки шрифтов**
-- Добавлены `dns-prefetch` хинты для Google Fonts (fonts.googleapis.com и fonts.gstatic.com)
-- Реализована двухуровневая стратегия: `preconnect` для современных браузеров + `dns-prefetch` для fallback
-- Ускорение загрузки шрифтов ~100ms за счет параллельного DNS/TCP/TLS handshake
+**Первая попытка оптимизации не сработала** из-за неправильного подхода:
+- vite-plugin-image-optimizer не работал на файлах из attached_assets (вне Vite root)
+- dns-prefetch не решал проблему render-blocking Google Fonts
+- Результат: производительность ухудшилась (LCP 11.8s)
 
-#### 2. **Автоматическая оптимизация изображений**
-- Установлен и настроен `vite-plugin-image-optimizer`
-- Автоматическая компрессия изображений при сборке:
-  - PNG: качество 80%
-  - JPEG/JPG: качество 75%
-  - WebP: качество 80%
-  - AVIF: качество 70%
-- Большое hero-изображение (1.7MB) будет сжато до ~400-600KB
-- Экономия трафика: ~1,593 KiB на изображениях
+**Правильное решение (реализовано):**
+
+#### 1. **Hero-изображение: Ручная оптимизация с Sharp**
+- Конвертировано вручную через Node.js скрипт с Sharp:
+  - **AVIF**: 140 KB (экономия 91.5% от оригинала 1,641 KB) ✅
+  - **WebP**: 136 KB (экономия 91.7%) ✅  
+  - **PNG fallback**: 519 KB (экономия 68.4%) ✅
+- Изображения перемещены в `client/src/assets/` (внутри Vite root)
+- Обновлен HeroSection с `<picture>` элементом:
+  ```jsx
+  <picture>
+    <source srcSet={heroAvif} type="image/avif" />
+    <source srcSet={heroWebp} type="image/webp" />
+    <img src={heroPng} alt="..." />
+  </picture>
+  ```
+- **Результат**: Размер hero-изображения уменьшен с 1,641 KB до 140 KB (AVIF)
+
+#### 2. **Self-hosted шрифты через @fontsource**
+- Удалены все ссылки на Google Fonts CDN из index.html
+- Установлены пакеты: `@fontsource/manrope` и `@fontsource/inter`
+- Импортированы в index.css нужные веса (400, 500, 600, 700, 800)
+- **Результат**: Нет render-blocking запросов к Google Fonts (~750ms экономия)
 
 #### 3. **Code Splitting (разделение JS-бандлов)**
 - Разделение vendor-библиотек (React, React DOM, Wouter) в отдельный chunk
@@ -208,16 +222,15 @@ npm run dev
 - Добавлена ссылка на sitemap.xml
 
 ### Ожидаемые результаты PageSpeed после деплоя:
-- **Render-blocking resources**: уменьшение на ~1,560ms
-- **Image optimization**: экономия ~1,593 KiB
+- **Image optimization**: уменьшение на ~1,501 KiB (91.5% экономия с AVIF)
+- **Render-blocking fonts**: экономия ~750ms (Google Fonts удалены)
+- **LCP**: значительное улучшение за счет меньшего hero-изображения
 - **JavaScript optimization**: уменьшение на ~83 KiB
-- **Network latency**: сокращение critical path на ~500ms
 
-### Следующие шаги для максимальной производительности:
-1. Запустить сборку на Netlify для активации всех оптимизаций
-2. Проверить результаты в Google PageSpeed Insights
-3. При необходимости добавить lazy-loading для компонентов ниже fold
-4. Рассмотреть использование Netlify Image CDN для динамической оптимизации
+### Следующие шаги:
+1. **Задеплоить на Netlify** - все оптимизации активируются при сборке
+2. **Проверить результаты** в Google PageSpeed Insights
+3. При необходимости добавить critical CSS для дальнейшей оптимизации
 
 ## Изменения
 - 2025-10-23: **Google PageSpeed оптимизации** - dns-prefetch, image optimization, code splitting, Netlify asset optimization, robots.txt fix
