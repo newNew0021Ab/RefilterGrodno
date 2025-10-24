@@ -23,14 +23,21 @@ The project is built with a modern web stack designed for performance and mainta
 - **Frontend:** React, TypeScript, Tailwind CSS, Framer Motion.
 - **Form Handling:** React Hook Form with Zod for validation.
 - **Mapping:** Yandex Maps API integration for location display.
-- **Performance Optimization:**
+- **Performance Optimization (October 2025 Updates):**
+    - **Lazy Loading:** Below-the-fold sections (PriceCalculator, PricingSection, ProcessSection, BookingSection, FaqSection, ContactSection, Footer, StickyButtons) are lazy-loaded using React.lazy() and Suspense to reduce initial JavaScript bundle size.
+    - **Advanced Code Splitting:** Vendor chunks are split into smaller, targeted chunks (framer-motion, radix-ui, react-vendor, icons, vendor) for better caching and parallel loading.
+    - **Console Removal:** Production builds automatically remove all console.log, console.info, and console.debug statements using Terser.
+    - **Server-Side Caching:** Static assets (JS, CSS, fonts, images) are cached for 1 year with immutable flag; HTML is served with no-cache headers.
+    - **Resource Hints:** dns-prefetch and preconnect added for Web3Forms API to reduce DNS lookup time.
+    - **Optimized Font Loading:** Reduced font variants from 7 to 4 (only critical weights: Inter 400/700, Manrope 700/800).
+    - **Theme Color Meta:** Added theme-color meta tag for better mobile browser integration.
     - Critical CSS inlining in `index.html` for instant above-the-fold rendering (includes structural defaults, typography, fixed header).
-    - Aggressive image compression via `vite-plugin-image-optimizer`: AVIF (quality: 60), WebP (quality: 75, -16% savings), PNG (quality: 80, -7% savings).
+    - Aggressive image compression via `vite-plugin-image-optimizer`: AVIF (quality: 60), WebP (quality: 75), PNG (quality: 80).
     - Self-hosting fonts via `@fontsource` with built-in `font-display: swap` to eliminate render-blocking requests.
-    - Simplified code splitting: all node_modules in single vendor.js to prevent multiple React instances and white screen bugs.
     - Netlify asset optimization (minification, Brotli compression).
     - Correct `robots.txt` and SEO metadata for search engine visibility.
     - Implementation of an ErrorBoundary component for graceful error handling.
+    - **Target:** 90+ Google PageSpeed scores on mobile and 95+ on desktop.
 - **Accessibility Enhancements:**
     - Comprehensive ARIA labels on all interactive elements (buttons, forms, navigation, calculator, sticky CTAs).
     - Proper ARIA roles and states (aria-pressed, aria-hidden, aria-label, aria-labelledby).
