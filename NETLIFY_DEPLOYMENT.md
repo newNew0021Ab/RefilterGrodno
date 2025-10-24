@@ -1,5 +1,20 @@
 # Деплой на Netlify для Refilter
 
+## ✅ ИСПРАВЛЕНО: Ошибка "Cannot read properties of undefined (reading 'useState')"
+
+**Проблема была в конфигурации Vite:**
+- Агрессивное разделение React и React-DOM в отдельные chunks создавало множественные экземпляры React
+- Это вызывало ошибку `Uncaught TypeError: Cannot read properties of undefined (reading 'useState')`
+
+**Решение:**
+- Упрощена конфигурация `vite.config.ts` - теперь все node_modules идут в один `vendor.js`
+- Включены console.log для отладки (drop_console: false)
+- Убран некорректный preload для hero изображения
+
+**Результат:** Сайт должен работать корректно после следующего деплоя на Netlify.
+
+---
+
 ## Проблема: Белый экран на Netlify
 
 Если вы видите белый экран на https://refilter.by/, это обычно связано с одной из следующих причин:

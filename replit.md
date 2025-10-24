@@ -1,294 +1,53 @@
 # Refilter - Сайт по чистке DPF/FAP фильтров
 
-## Обзор проекта
-Профессиональный продающий лендинг для сервиса по чистке DPF/FAP фильтров в Гродно. Сайт разработан с акцентом на максимальную конверсию и генерацию лидов.
+## Overview
+Refilter is a professional, sales-oriented landing page for a DPF/FAP filter cleaning service in Grodno. The project aims to maximize conversion and generate leads through a user-friendly interface and clear value propositions. Key capabilities include an interactive cost calculator, online appointment booking, and comprehensive service information.
 
-## Технологии
-- **Frontend**: React, TypeScript, Tailwind CSS, Framer Motion
-- **Backend**: Express.js, Node.js
-- **Валидация**: Zod
-- **Формы**: React Hook Form
-- **UI компоненты**: Shadcn/ui
-- **Карты**: Yandex Maps API
-- **Шрифты**: Manrope (заголовки), Inter (текст)
+## User Preferences
+- I prefer simple language and clear explanations.
+- I like iterative development; let's build step-by-step.
+- Ask before making major architectural changes or adding new external dependencies.
+- Ensure all changes are thoroughly tested and do not introduce regressions.
+- Prioritize solutions that directly contribute to lead generation and user conversion.
 
-## Основные функции (MVP)
+## System Architecture
+The project is built with a modern web stack designed for performance and maintainability.
 
-### 1. Hero-секция
-- Яркий hero-блок с градиентом на фоновом изображении
-- Ценностное предложение и USP
-- Dual CTA (Записаться онлайн / Позвонить)
-- Trust indicators (120+ авто, с 2018 года, гарантия)
+**UI/UX Decisions:**
+- **Color Palette:** Primary (Deep Blue: `210 85% 25%`) for professionalism, Accent (Electric Orange: `25 95% 55%`) for CTAs, Success (Emerald: `150 70% 45%`) for guarantees.
+- **Typography:** Manrope for headings (700/800 weight) and numbers, Inter for body text (400/500/600 weight).
+- **Components:** Utilizes Shadcn/ui for core UI elements, custom gradients for hero and accent blocks, smooth animations via Framer Motion, and elevation utilities for hover/active states.
+- **Design Approach:** Emphasizes a bright hero section with a gradient background, clear value propositions, dual CTAs, and trust indicators. Sticky floating call and appointment buttons improve accessibility.
 
-### 2. Интерактивный калькулятор стоимости
-- Выбор типа авто (легковой/кроссовер/грузовой)
-- Опции: срочная промывка (+30%), снятие/установка (+60 BYN)
-- Мгновенный расчет цены
-- CTA "Записаться по этой цене"
+**Technical Implementations:**
+- **Frontend:** React, TypeScript, Tailwind CSS, Framer Motion.
+- **Form Handling:** React Hook Form with Zod for validation.
+- **Mapping:** Yandex Maps API integration for location display.
+- **Performance Optimization:**
+    - Manual image optimization (AVIF/WebP/PNG) for hero section using `<picture>` element.
+    - Self-hosting fonts via `@fontsource` to eliminate render-blocking requests.
+    - Code splitting for JavaScript bundles (vendor libraries, UI components).
+    - Netlify asset optimization (minification, image compression, Brotli compression).
+    - Correct `robots.txt` and SEO metadata for search engine visibility.
+    - Implementation of an ErrorBoundary component for graceful error handling.
 
-### 3. Блок цен
-- 4 основные услуги в карточках
-- Дополнительные услуги
-- Выделение популярного варианта
-- Гарантийный баннер (6 месяцев / 50 000 км)
+**Feature Specifications:**
+- **Hero Section:** Prominent block with USP, dual CTAs ("Book Online" / "Call"), and trust indicators.
+- **Interactive Cost Calculator:** Allows users to select vehicle type and additional options for instant price calculation.
+- **Pricing Block:** Displays core and additional services, highlights popular options, and features a 6-month/50,000 km warranty banner.
+- **Cleaning Process:** Visual timeline of 5 steps with before/after photos and technology description.
+- **Online Booking Form:** Validated fields (name, phone, vehicle type, date), direct submission to Web3Forms API, success/error handling, and email notifications.
+- **FAQ Section:** Accordion-style answers to common questions.
+- **Contacts:** Interactive Yandex Map, address, phone, and working hours.
+- **SEO:** Meta tags, Open Graph, and semantic markup optimized for relevant search queries.
 
-### 4. Процесс чистки
-- 5 шагов процесса с timeline
-- Фото до/после чистки фильтра
-- Описание используемой технологии
+**System Design Choices:**
+- **Monorepo-like Structure:** `client` for frontend, `server` for potential backend (currently minimal), `shared` for common types and schemas.
+- **Deployment:** Primarily designed for Netlify, with the booking form leveraging Web3Forms API directly from the frontend to avoid a dedicated backend.
 
-### 5. Форма онлайн-записи
-- Валидация всех полей (имя, телефон, тип авто, дата)
-- **Отправка напрямую в Web3Forms API** (работает на Netlify без backend)
-- Web3Forms access key встроен в код (публичный ключ, безопасно)
-- Success state с подтверждением
-- Error handling
-- Email уведомления через Web3Forms
-
-### 6. FAQ секция
-- 8 частых вопросов в аккордеоне
-- Ответы о гарантии, сроках, технологии, ценах
-
-### 7. Контакты
-- Интерактивная Яндекс.Карта
-- Адрес: г. Гродно, ул. Низинная, д. 5
-- Телефон: +375 29 836 96 55
-- Часы работы: Пн–Пт 9:00–19:00, Сб 9:00–14:00
-
-### 8. Sticky floating buttons
-- Кнопка звонка (оранжевая, слева)
-- Кнопка записи (синяя, справа)
-- Появляются при прокрутке >300px
-- Blur backdrop эффект
-
-### 9. SEO-оптимизация
-- Метатеги для поисковой выдачи
-- Open Graph для соцсетей
-- Семантическая разметка
-- Оптимизация под запросы "чистка DPF Гродно"
-
-## Структура проекта
-
-```
-/client
-  /src
-    /components
-      /layout       - Header, Footer
-      /sections     - Hero, Calculator, Pricing, Process, Booking, FAQ, Contacts
-      /ui           - Shadcn компоненты, Sticky buttons
-    /pages          - Home page
-/server
-  routes.ts         - API endpoints для заявок
-  storage.ts        - In-memory storage для заявок
-/shared
-  schema.ts         - Zod схемы и TypeScript типы
-```
-
-## API Endpoints
-
-### POST /api/bookings
-Создание новой заявки на чистку фильтра
-
-**Request body:**
-```json
-{
-  "name": "Иван Иванов",
-  "phone": "+375291234567",
-  "vehicleType": "car|crossover|truck",
-  "preferredDate": "2025-01-15",
-  "message": "Дополнительная информация"
-}
-```
-
-**Response:** 201 Created
-```json
-{
-  "id": "uuid",
-  "name": "Иван Иванов",
-  "phone": "+375291234567",
-  "vehicleType": "car",
-  "preferredDate": "2025-01-15",
-  "message": "...",
-  "createdAt": "2025-01-10T10:00:00.000Z"
-}
-```
-
-### GET /api/bookings
-Получение всех заявок (для администратора)
-
-### GET /api/bookings/:id
-Получение конкретной заявки
-
-## Дизайн-система
-
-### Цветовая палитра
-- **Primary (Deep Blue)**: `210 85% 25%` - надежность, профессионализм
-- **Accent (Electric Orange)**: `25 95% 55%` - CTA кнопки, срочность
-- **Success (Emerald)**: `150 70% 45%` - гарантии, успех
-
-### Типографика
-- **Заголовки**: Manrope (700/800 weight)
-- **Текст**: Inter (400/500/600 weight)
-- **Числа/цены**: Manrope (800 weight)
-
-### Компоненты
-- Используются Shadcn/ui компоненты
-- Custom градиенты для hero и акцентных блоков
-- Плавные анимации через Framer Motion
-- Hover/active states через elevation utilities
-
-## Запуск проекта
-
-```bash
-npm run dev
-```
-
-Приложение будет доступно на порту 5000.
-
-## Следующие шаги (после MVP)
-- Интеграция Google Analytics 4
-- Отправка заявок на email/Telegram
-- Блок отзывов клиентов
-- Онлайн-оплата диагностики
-- CRM интеграция для автоматического сохранения заявок
-
-## Контактная информация
-- **Название**: Refilter
-- **Телефон**: +375 29 836 96 55
-- **Адрес**: г. Гродно, ул. Низинная, д. 5
-- **Часы**: Пн–Пт 9:00–19:00, Сб 9:00–14:00
-- **Гарантия**: 6 месяцев или 50 000 км
-
-## Деплой на Netlify
-
-### Быстрый деплой
-1. Подключите репозиторий к Netlify
-2. Build command: `npm run build`
-3. Publish directory: `dist`
-4. Deploy! ✅
-
-Форма бронирования работает **без backend** - отправляет данные напрямую в Web3Forms API.
-
-Подробная инструкция: см. файл `NETLIFY_DEPLOY.md`
-
-## Оптимизация производительности (Google PageSpeed)
-
-### Реализованные оптимизации (23 октября 2025) - ВЕРСИЯ 2
-
-**Первая попытка оптимизации не сработала** из-за неправильного подхода:
-- vite-plugin-image-optimizer не работал на файлах из attached_assets (вне Vite root)
-- dns-prefetch не решал проблему render-blocking Google Fonts
-- Результат: производительность ухудшилась (LCP 11.8s)
-
-**Правильное решение (реализовано):**
-
-#### 1. **Hero-изображение: Ручная оптимизация с Sharp**
-- Конвертировано вручную через Node.js скрипт с Sharp:
-  - **AVIF**: 140 KB (экономия 91.5% от оригинала 1,641 KB) ✅
-  - **WebP**: 136 KB (экономия 91.7%) ✅  
-  - **PNG fallback**: 519 KB (экономия 68.4%) ✅
-- Изображения перемещены в `client/src/assets/` (внутри Vite root)
-- Обновлен HeroSection с `<picture>` элементом:
-  ```jsx
-  <picture>
-    <source srcSet={heroAvif} type="image/avif" />
-    <source srcSet={heroWebp} type="image/webp" />
-    <img src={heroPng} alt="..." />
-  </picture>
-  ```
-- **Результат**: Размер hero-изображения уменьшен с 1,641 KB до 140 KB (AVIF)
-
-#### 2. **Self-hosted шрифты через @fontsource**
-- Удалены все ссылки на Google Fonts CDN из index.html
-- Установлены пакеты: `@fontsource/manrope` и `@fontsource/inter`
-- Импортированы в index.css нужные веса (400, 500, 600, 700, 800)
-- **Результат**: Нет render-blocking запросов к Google Fonts (~750ms экономия)
-
-#### 3. **Code Splitting (разделение JS-бандлов)**
-- Разделение vendor-библиотек (React, React DOM, Wouter) в отдельный chunk
-- UI-компоненты (Radix UI) выделены в отдельный модуль
-- CSS разделен по страницам (cssCodeSplit: true)
-- Уменьшение неиспользуемого JavaScript на ~83 KiB
-
-#### 4. **Netlify Asset Optimization**
-- Настроена автоматическая минификация CSS и JS
-- Включена компрессия изображений на CDN
-- Pretty URLs для лучшей SEO
-- Brotli-компрессия (автоматически на Netlify)
-
-#### 5. **SEO: robots.txt**
-- Создан корректный robots.txt согласно RFC 9309
-- Исправлены все 24 синтаксические ошибки
-- Добавлена ссылка на sitemap.xml
-
-### Ожидаемые результаты PageSpeed после деплоя:
-- **Image optimization**: уменьшение на ~1,501 KiB (91.5% экономия с AVIF)
-- **Render-blocking fonts**: экономия ~750ms (Google Fonts удалены)
-- **LCP**: значительное улучшение за счет меньшего hero-изображения
-- **JavaScript optimization**: уменьшение на ~83 KiB
-
-### Следующие шаги:
-1. **Задеплоить на Netlify** - все оптимизации активируются при сборке
-2. **Проверить результаты** в Google PageSpeed Insights
-3. При необходимости добавить critical CSS для дальнейшей оптимизации
-
-## Отладка проблем с деплоем (24 октября 2025)
-
-### Исправление белого экрана на Netlify
-
-**Проблема:** При деплое на https://refilter.by/ отображался белый экран вместо сайта.
-
-**Реализованные решения:**
-
-#### 1. **ErrorBoundary компонент**
-- Добавлен React Error Boundary для перехвата ошибок рендеринга
-- Показывает понятное сообщение об ошибке вместо белого экрана
-- Включает детали ошибки для отладки
-- Кнопка "Обновить страницу" для пользователя
-
-Файл: `client/src/components/ErrorBoundary.tsx`
-
-#### 2. **Расширенное логирование инициализации**
-- Добавлены console.log для отслеживания этапов загрузки
-- Логи показывают:
-  - 🚀 Начало инициализации
-  - 📦 Окружение (development/production)
-  - ✅ Наличие root элемента
-  - ✅ Успешный рендер React
-
-Обновлен файл: `client/src/main.tsx`
-
-#### 3. **Файл _headers для Netlify**
-- Корректные MIME-типы для всех ресурсов
-- Оптимизированное кэширование статических файлов
-- Security headers (X-Frame-Options, CSP)
-- Предотвращает ошибки загрузки ресурсов
-
-Файл: `client/public/_headers`
-
-#### 4. **Документация по деплою**
-- Пошаговая инструкция по устранению белого экрана
-- Чеклист проверок для деплоя
-- Объяснение частых причин проблем
-- Инструкции по проверке логов и консоли
-
-Файл: `NETLIFY_DEPLOYMENT.md`
-
-### Как использовать
-
-**Для отладки на Netlify:**
-1. Откройте консоль браузера (F12)
-2. Проверьте наличие логов инициализации
-3. Если есть ошибки - следуйте инструкциям в `NETLIFY_DEPLOYMENT.md`
-
-**Частые причины белого экрана:**
-- Отсутствует `VITE_WEB3FORMS_ACCESS_KEY` в Environment Variables
-- Ошибки в логах сборки Netlify
-- Проблемы с загрузкой ресурсов (проверьте Network в DevTools)
-
-## Изменения
-- 2025-10-24: **Netlify белый экран fix** - ErrorBoundary, console logging, _headers, deployment documentation
-- 2025-10-23: **Google PageSpeed оптимизации** - dns-prefetch, image optimization, code splitting, Netlify asset optimization, robots.txt fix
-- 2025-10-23: Форма переделана для работы на Netlify (Web3Forms API напрямую с frontend)
-- 2025-10-21: Миграция проекта в Replit, настройка Web3Forms интеграции
-- 2025-01-20: Создан MVP сайта с калькулятором, формой записи, FAQ и контактами
+## External Dependencies
+- **Web3Forms API:** Used for handling online booking form submissions and email notifications directly from the frontend.
+- **Yandex Maps API:** Integrated for displaying the service location interactively.
+- **@fontsource:** Used for self-hosting Manrope and Inter fonts.
+- **Shadcn/ui:** Provides a collection of re-usable UI components.
+- **Framer Motion:** Used for declarative animations.

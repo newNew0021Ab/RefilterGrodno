@@ -52,7 +52,7 @@ export default defineConfig({
     minify: 'terser',
     terserOptions: {
       compress: {
-        drop_console: true,
+        drop_console: false,
         dead_code: true,
         unused: true,
       },
@@ -60,21 +60,8 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          // Split vendor libraries
           if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom')) {
-              return 'vendor-react';
-            }
-            if (id.includes('@radix-ui')) {
-              return 'vendor-ui';
-            }
-            if (id.includes('framer-motion')) {
-              return 'vendor-animation';
-            }
-            if (id.includes('lucide-react')) {
-              return 'vendor-icons';
-            }
-            return 'vendor-other';
+            return 'vendor';
           }
         },
       },
