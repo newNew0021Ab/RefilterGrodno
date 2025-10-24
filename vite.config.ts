@@ -53,23 +53,7 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        manualChunks(id: string) {
-          if (id.includes('node_modules')) {
-            if (id.includes('framer-motion')) {
-              return 'framer-motion';
-            }
-            if (id.includes('@radix-ui')) {
-              return 'radix-ui';
-            }
-            if (id.includes('react') || id.includes('react-dom')) {
-              return 'react-vendor';
-            }
-            if (id.includes('lucide-react')) {
-              return 'icons';
-            }
-            return 'vendor';
-          }
-        },
+        manualChunks: undefined,
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash][extname]',
