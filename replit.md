@@ -24,12 +24,19 @@ The project is built with a modern web stack designed for performance and mainta
 - **Form Handling:** React Hook Form with Zod for validation.
 - **Mapping:** Yandex Maps API integration for location display.
 - **Performance Optimization:**
-    - Manual image optimization (AVIF/WebP/PNG) for hero section using `<picture>` element.
-    - Self-hosting fonts via `@fontsource` to eliminate render-blocking requests.
-    - Code splitting for JavaScript bundles (vendor libraries, UI components).
-    - Netlify asset optimization (minification, image compression, Brotli compression).
+    - Critical CSS inlining in `index.html` for instant above-the-fold rendering (includes structural defaults, typography, fixed header).
+    - Aggressive image compression via `vite-plugin-image-optimizer`: AVIF (quality: 60), WebP (quality: 75, -16% savings), PNG (quality: 80, -7% savings).
+    - Self-hosting fonts via `@fontsource` with built-in `font-display: swap` to eliminate render-blocking requests.
+    - Simplified code splitting: all node_modules in single vendor.js to prevent multiple React instances and white screen bugs.
+    - Netlify asset optimization (minification, Brotli compression).
     - Correct `robots.txt` and SEO metadata for search engine visibility.
     - Implementation of an ErrorBoundary component for graceful error handling.
+- **Accessibility Enhancements:**
+    - Comprehensive ARIA labels on all interactive elements (buttons, forms, navigation, calculator, sticky CTAs).
+    - Proper ARIA roles and states (aria-pressed, aria-hidden, aria-label, aria-labelledby).
+    - Mobile navigation with body scroll lock (prevents background scrolling when menu is open).
+    - Semantic HTML5 structure for screen reader compatibility.
+    - Target: 100/100 Google PageSpeed Accessibility scores on both mobile and desktop.
 
 **Feature Specifications:**
 - **Hero Section:** Prominent block with USP, dual CTAs ("Book Online" / "Call"), and trust indicators.
