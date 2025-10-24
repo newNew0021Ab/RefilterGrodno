@@ -120,8 +120,8 @@ export function PriceCalculator() {
                     {/* Urgent Service */}
                     <button
                       onClick={() => setIsUrgent(!isUrgent)}
-                      className={`p-4 rounded-lg border-2 text-left transition-all shadow-sm hover:shadow-md ${
-                        isUrgent ? "border-chart-2 bg-chart-2/5 shadow-md" : "border-muted-foreground/20 hover:border-chart-2/50 hover-elevate"
+                      className={`p-4 rounded-lg border-2 text-left transition-all ${
+                        isUrgent ? "border-chart-2 bg-chart-2/5" : "border-border hover-elevate"
                       }`}
                       data-testid="calc-option-urgent"
                       aria-label="Добавить срочную промывку за 1 день плюс 30 процентов к стоимости"
@@ -142,8 +142,8 @@ export function PriceCalculator() {
                     {/* Removal Service */}
                     <button
                       onClick={() => setIncludeRemoval(!includeRemoval)}
-                      className={`p-4 rounded-lg border-2 text-left transition-all shadow-sm hover:shadow-md ${
-                        includeRemoval ? "border-chart-1 bg-chart-1/5 shadow-md" : "border-muted-foreground/20 hover:border-chart-1/50 hover-elevate"
+                      className={`p-4 rounded-lg border-2 text-left transition-all ${
+                        includeRemoval ? "border-chart-1 bg-chart-1/5" : "border-border hover-elevate"
                       }`}
                       data-testid="calc-option-removal"
                       aria-label="Добавить снятие и установку фильтра за 60 BYN"
