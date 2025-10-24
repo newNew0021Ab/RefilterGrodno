@@ -19,10 +19,10 @@ export default defineConfig({
         quality: 75,
       },
       webp: {
-        quality: 80,
+        quality: 75,
       },
       avif: {
-        quality: 70,
+        quality: 60,
       },
     }),
     ...(process.env.NODE_ENV !== "production" &&

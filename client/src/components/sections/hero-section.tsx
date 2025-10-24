@@ -23,7 +23,7 @@ export function HeroSection() {
           <source srcSet={heroWebp} type="image/webp" />
           <img
             src={heroPng}
-            alt="Современный автосервис Refilter"
+            alt="Профессиональная чистка DPF фильтров в современном автосервисе Refilter в Гродно с гарантией качества"
             className="w-full h-full object-cover"
             width={1408}
             height={768}
@@ -104,17 +104,18 @@ export function HeroSection() {
               onClick={() => scrollToSection("booking")}
               className="bg-chart-2 text-black hover:bg-chart-2/90 border-0 text-base sm:text-lg px-8 py-6 shadow-xl font-semibold"
               data-testid="button-hero-booking"
+              aria-label="Перейти к форме онлайн-записи на чистку DPF фильтра"
             >
-              <Calendar className="w-5 h-5 mr-2" />
+              <Calendar className="w-5 h-5 mr-2" aria-hidden="true" />
               Записаться онлайн
             </Button>
-            <a href="tel:+375298369655" data-testid="button-hero-call">
+            <a href="tel:+375298369655" data-testid="button-hero-call" aria-label="Позвонить по телефону +375 29 836 96 55">
               <Button
                 size="lg"
                 variant="outline"
                 className="bg-white/10 backdrop-blur-md text-white border-white/30 hover:bg-white/20 text-base sm:text-lg px-8 py-6"
               >
-                <Phone className="w-5 h-5 mr-2" />
+                <Phone className="w-5 h-5 mr-2" aria-hidden="true" />
                 Позвонить сейчас
               </Button>
             </a>

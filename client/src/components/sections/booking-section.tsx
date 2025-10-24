@@ -279,6 +279,7 @@ export function BookingSection() {
                         className="w-full bg-chart-2 text-white hover:bg-chart-2/90 border-0 text-lg h-14"
                         disabled={form.formState.isSubmitting}
                         data-testid="button-submit-booking"
+                        aria-label="Отправить заявку на запись для чистки DPF фильтра"
                       >
                         {form.formState.isSubmitting ? (
                           <>

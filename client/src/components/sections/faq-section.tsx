@@ -104,6 +104,7 @@ export function FaqSection() {
             href="tel:+375298369655"
             className="text-xl font-heading font-bold text-chart-2 hover:text-chart-2/80 transition-colors"
             data-testid="link-faq-phone"
+            aria-label="Позвонить нам по телефону +375 29 836 96 55 для консультации"
           >
             +375 29 836 96 55
           </a>

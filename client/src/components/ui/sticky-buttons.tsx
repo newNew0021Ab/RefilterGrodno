@@ -22,13 +22,14 @@ export function StickyButtons() {
               exit={{ opacity: 0, y: 50, x: -50 }}
               className="pointer-events-auto"
             >
-              <a href="tel:+375298369655" data-testid="sticky-button-call">
+              <a href="tel:+375298369655" data-testid="sticky-button-call" aria-label="Позвонить по телефону +375 29 836 96 55">
                 <Button
                   size="lg"
                   className="bg-chart-2/95 backdrop-blur-md text-white hover:bg-chart-2 border-0 shadow-2xl rounded-full h-16 px-6"
                 >
-                  <Phone className="w-5 h-5 mr-2" />
+                  <Phone className="w-5 h-5 mr-2" aria-hidden="true" />
                   <span className="hidden sm:inline">Позвонить</span>
+                  <span className="sr-only">Позвонить по телефону +375 29 836 96 55</span>
                 </Button>
               </a>
             </motion.div>
@@ -45,8 +46,9 @@ export function StickyButtons() {
                 onClick={scrollToBooking}
                 className="bg-chart-1/95 backdrop-blur-md text-white hover:bg-chart-1 border-0 shadow-2xl rounded-full h-16 px-6"
                 data-testid="sticky-button-booking"
+                aria-label="Перейти к форме записи на чистку DPF фильтра"
               >
-                <Calendar className="w-5 h-5 mr-2" />
+                <Calendar className="w-5 h-5 mr-2" aria-hidden="true" />
                 <span className="hidden sm:inline">Записаться</span>
               </Button>
             </motion.div>

@@ -142,9 +142,10 @@ export function PricingSection() {
                       service.popular ? "bg-chart-2 text-white hover:bg-chart-2/90 border-0" : ""
                     }`}
                     data-testid={`pricing-book-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
+                    aria-label={`Записаться на услугу ${service.title} за ${service.price} BYN`}
                   >
                     Записаться
-                    <ArrowRight className="w-4 h-4 ml-2" />
+                    <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
                   </Button>
                 </CardFooter>
               </Card>

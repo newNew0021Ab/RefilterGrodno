@@ -75,6 +75,7 @@ export function ContactSection() {
                           target={info.link.startsWith("http") ? "_blank" : undefined}
                           rel={info.link.startsWith("http") ? "noopener noreferrer" : undefined}
                           data-testid={`contact-link-${info.title.toLowerCase()}`}
+                          aria-label={`${info.linkText}: ${info.content}`}
                         >
                           <Button variant="outline" size="sm">
                             {info.linkText}
@@ -111,9 +112,10 @@ export function ContactSection() {
                       target="_blank"
                       rel="noopener noreferrer"
                       data-testid="link-yandex-maps"
+                      aria-label="Построить маршрут до Refilter в Яндекс.Картах"
                     >
                       <Button variant="default" className="bg-chart-1 text-white w-full">
-                        <ExternalLink className="w-4 h-4 mr-2" />
+                        <ExternalLink className="w-4 h-4 mr-2" aria-hidden="true" />
                         Открыть в Яндекс.Картах
                       </Button>
                     </a>
@@ -122,9 +124,10 @@ export function ContactSection() {
                       target="_blank"
                       rel="noopener noreferrer"
                       data-testid="link-google-maps"
+                      aria-label="Построить маршрут до Refilter в Google Maps"
                     >
                       <Button variant="outline" className="w-full">
-                        <ExternalLink className="w-4 h-4 mr-2" />
+                        <ExternalLink className="w-4 h-4 mr-2" aria-hidden="true" />
                         Открыть в Google Maps
                       </Button>
                     </a>

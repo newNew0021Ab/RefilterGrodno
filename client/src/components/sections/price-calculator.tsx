@@ -79,6 +79,8 @@ export function PriceCalculator() {
                         : "border-border hover-elevate"
                     }`}
                     data-testid={`calc-vehicle-${vehicle.type}`}
+                    aria-label={`Выбрать тип автомобиля ${vehicle.label} - ${vehicle.price} BYN`}
+                    aria-pressed={vehicleType === vehicle.type}
                   >
                     {vehicle.popular && (
                       <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-chart-2 text-black font-semibold border-chart-2">
@@ -111,6 +113,8 @@ export function PriceCalculator() {
                         isUrgent ? "border-chart-2 bg-chart-2/5" : "border-border hover-elevate"
                       }`}
                       data-testid="calc-option-urgent"
+                      aria-label="Добавить срочную промывку за 1 день плюс 30 процентов к стоимости"
+                      aria-pressed={isUrgent}
                     >
                       <div className="flex items-start gap-3">
                         <Zap className={`w-6 h-6 mt-1 flex-shrink-0 ${isUrgent ? "text-chart-2" : "text-muted-foreground"}`} />
@@ -131,6 +135,8 @@ export function PriceCalculator() {
                         includeRemoval ? "border-chart-1 bg-chart-1/5" : "border-border hover-elevate"
                       }`}
                       data-testid="calc-option-removal"
+                      aria-label="Добавить снятие и установку фильтра за 60 BYN"
+                      aria-pressed={includeRemoval}
                     >
                       <div className="flex items-start gap-3">
                         <Wrench className={`w-6 h-6 mt-1 flex-shrink-0 ${includeRemoval ? "text-chart-1" : "text-muted-foreground"}`} />
@@ -170,9 +176,10 @@ export function PriceCalculator() {
                       onClick={scrollToBooking}
                       className="bg-chart-2 text-white hover:bg-chart-2/90 border-0 whitespace-nowrap"
                       data-testid="calc-button-book"
+                      aria-label={`Записаться на чистку фильтра по цене ${calculateTotal()} BYN`}
                     >
                       Записаться по этой цене
-                      <ArrowRight className="w-5 h-5 ml-2" />
+                      <ArrowRight className="w-5 h-5 ml-2" aria-hidden="true" />
                     </Button>
                   </div>
                 </motion.div>
