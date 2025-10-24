@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -17,6 +17,17 @@ export function PriceCalculator() {
   const [vehicleType, setVehicleType] = useState<VehicleType>(null);
   const [isUrgent, setIsUrgent] = useState(false);
   const [includeRemoval, setIncludeRemoval] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 1023px)');
+    const onChange = () => {
+      setIsMobile(mql.matches);
+    };
+    mql.addEventListener('change', onChange);
+    setIsMobile(mql.matches);
+    return () => mql.removeEventListener('change', onChange);
+  }, []);
 
   const calculateTotal = () => {
     if (!vehicleType) return 0;
@@ -70,13 +81,13 @@ export function PriceCalculator() {
                 ].map((vehicle) => (
                   <motion.button
                     key={vehicle.type}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    whileHover={isMobile ? {} : { scale: 1.02 }}
+                    whileTap={isMobile ? {} : { scale: 0.98 }}
                     onClick={() => setVehicleType(vehicle.type)}
-                    className={`relative p-6 rounded-lg border-2 transition-all ${
+                    className={`relative p-6 rounded-lg border-2 transition-all shadow-sm hover:shadow-md ${
                       vehicleType === vehicle.type
-                        ? "border-chart-1 bg-chart-1/5"
-                        : "border-border hover-elevate"
+                        ? "border-chart-1 bg-chart-1/5 shadow-md"
+                        : "border-muted-foreground/20 hover:border-chart-1/50 hover-elevate"
                     }`}
                     data-testid={`calc-vehicle-${vehicle.type}`}
                     aria-label={`Выбрать тип автомобиля ${vehicle.label} - ${vehicle.price} BYN`}
@@ -109,8 +120,8 @@ export function PriceCalculator() {
                     {/* Urgent Service */}
                     <button
                       onClick={() => setIsUrgent(!isUrgent)}
-                      className={`p-4 rounded-lg border-2 text-left transition-all ${
-                        isUrgent ? "border-chart-2 bg-chart-2/5" : "border-border hover-elevate"
+                      className={`p-4 rounded-lg border-2 text-left transition-all shadow-sm hover:shadow-md ${
+                        isUrgent ? "border-chart-2 bg-chart-2/5 shadow-md" : "border-muted-foreground/20 hover:border-chart-2/50 hover-elevate"
                       }`}
                       data-testid="calc-option-urgent"
                       aria-label="Добавить срочную промывку за 1 день плюс 30 процентов к стоимости"
@@ -131,8 +142,8 @@ export function PriceCalculator() {
                     {/* Removal Service */}
                     <button
                       onClick={() => setIncludeRemoval(!includeRemoval)}
-                      className={`p-4 rounded-lg border-2 text-left transition-all ${
-                        includeRemoval ? "border-chart-1 bg-chart-1/5" : "border-border hover-elevate"
+                      className={`p-4 rounded-lg border-2 text-left transition-all shadow-sm hover:shadow-md ${
+                        includeRemoval ? "border-chart-1 bg-chart-1/5 shadow-md" : "border-muted-foreground/20 hover:border-chart-1/50 hover-elevate"
                       }`}
                       data-testid="calc-option-removal"
                       aria-label="Добавить снятие и установку фильтра за 60 BYN"

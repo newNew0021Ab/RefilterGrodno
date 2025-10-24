@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Phone, Calendar, Shield, CheckCircle2 } from "lucide-react";
@@ -7,6 +8,18 @@ import heroWebp from "@/assets/hero.webp";
 import heroPng from "@/assets/hero.png";
 
 export function HeroSection() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 1023px)');
+    const onChange = () => {
+      setIsMobile(mql.matches);
+    };
+    mql.addEventListener('change', onChange);
+    setIsMobile(mql.matches);
+    return () => mql.removeEventListener('change', onChange);
+  }, []);
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -39,9 +52,9 @@ export function HeroSection() {
         <div className="max-w-4xl">
           {/* Trust Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={isMobile ? { opacity: 1 } : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={isMobile ? {} : { delay: 0.2 }}
             className="mb-6"
           >
             <Badge className="bg-chart-3/20 backdrop-blur-sm text-chart-3 border-chart-3/30 px-4 py-2 text-sm font-semibold">
@@ -52,9 +65,9 @@ export function HeroSection() {
 
           {/* Main Heading */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={isMobile ? { opacity: 1 } : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={isMobile ? {} : { delay: 0.3 }}
             className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-heading font-extrabold leading-tight mb-6 text-white"
           >
             Профессиональная чистка{" "}
@@ -63,9 +76,9 @@ export function HeroSection() {
 
           {/* Subtitle */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={isMobile ? { opacity: 1 } : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            transition={isMobile ? {} : { delay: 0.4 }}
             className="text-lg sm:text-xl lg:text-2xl text-white/90 mb-8 max-w-2xl leading-relaxed"
           >
             Восстановим мощность двигателя и снизим расход топлива. 
@@ -74,9 +87,9 @@ export function HeroSection() {
 
           {/* Trust Indicators */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={isMobile ? { opacity: 1 } : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
+            transition={isMobile ? {} : { delay: 0.5 }}
             className="flex flex-wrap gap-6 mb-10"
           >
             {[
@@ -93,9 +106,9 @@ export function HeroSection() {
 
           {/* CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={isMobile ? { opacity: 1 } : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
+            transition={isMobile ? {} : { delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4"
           >
             <Button
@@ -122,9 +135,9 @@ export function HeroSection() {
 
           {/* Additional Info */}
           <motion.p
-            initial={{ opacity: 0 }}
+            initial={isMobile ? { opacity: 1 } : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.7 }}
+            transition={isMobile ? {} : { delay: 0.7 }}
             className="mt-8 text-sm text-white/70"
           >
             Пн–Пт 9:00–19:00, Сб 9:00–14:00 | г. Гродно, ул. Низинная, д. 5
@@ -132,12 +145,12 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator - Hidden on mobile */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1, repeat: Infinity, duration: 1.5, repeatType: "reverse" }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
+        className="hidden lg:block absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
       >
         <div className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-2">
           <div className="w-1 h-2 bg-white/60 rounded-full" />
