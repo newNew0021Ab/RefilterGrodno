@@ -28,7 +28,6 @@ export function HeroSection() {
             width={1408}
             height={768}
             loading="eager"
-            fetchPriority="high"
             decoding="async"
           />
         </picture>        {/* Dark gradient wash for text readability */}

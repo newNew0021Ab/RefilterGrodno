@@ -25,17 +25,6 @@ export default defineConfig({
         quality: 60,
       },
     }),
-    ...(process.env.NODE_ENV !== "production" &&
-    process.env.REPL_ID !== undefined
-      ? [
-          await import("@replit/vite-plugin-cartographer").then((m) =>
-            m.cartographer(),
-          ),
-          await import("@replit/vite-plugin-dev-banner").then((m) =>
-            m.devBanner(),
-          ),
-        ]
-      : []),
   ],
   resolve: {
     alias: {
@@ -64,7 +53,7 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        manualChunks(id) {
+        manualChunks(id: string) {
           if (id.includes('node_modules')) {
             if (id.includes('framer-motion')) {
               return 'framer-motion';
