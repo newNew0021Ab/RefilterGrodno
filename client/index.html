@@ -8,12 +8,22 @@
     <meta name="keywords" content="чистка DPF Гродно, промывка FAP фильтров, сажевый фильтр Гродно, Refilter, диагностика DPF" />
     
     <!-- Open Graph / Social Media -->
+    <!-- Theme Color for mobile browsers -->
+    <meta name="theme-color" content="hsl(210, 85%, 25%)" />
+    
+    <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Refilter - Чистка DPF/FAP фильтров в Гродно" />
     <meta property="og:description" content="Профессиональная чистка сажевых фильтров от 390 BYN. Гарантия 6 месяцев. Запишитесь онлайн!" />
     <meta property="og:locale" content="ru_BY" />
     
     <!-- Fonts: Manrope for headings, Inter for body - Self-hosted via @fontsource -->
+    <link rel="preload" href="/node_modules/@fontsource/inter/files/inter-cyrillic-ext-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/node_modules/@fontsource/manrope/files/manrope-cyrillic-ext-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+    
+    <!-- Resource hints for external services -->
+    <link rel="dns-prefetch" href="https://api.web3forms.com" />
+    <link rel="preconnect" href="https://api.web3forms.com" crossorigin />
     
     <!-- Inline critical CSS for immediate rendering -->
     <style>
@@ -33,5 +43,12 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Minimal inline script to prevent FOUC -->
+    <script>
+      if ('loading' in HTMLImageElement.prototype) {
+        document.documentElement.classList.add('native-lazy-loading');
+      }
+    </script>
   </body>
 </html>

@@ -28,10 +28,10 @@ export function HeroSection() {
             width={1408}
             height={768}
             loading="eager"
+            fetchPriority="high"
             decoding="async"
           />
-        </picture>
-        {/* Dark gradient wash for text readability */}
+        </picture>        {/* Dark gradient wash for text readability */}
         <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/70 to-black/60" />
       </div>
 
